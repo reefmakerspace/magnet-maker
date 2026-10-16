@@ -141,7 +141,7 @@ footer { color: var(--gray); font-size: 12px; padding-block: 0 28px; }
   <section class="panel" id="stage" aria-label="Preview">
     <div class="stagebar">
       <div class="seg" role="group" aria-label="Preview material">
-        <button type="button" data-view="birch">Birch</button><button type="button" data-view="white">White acrylic</button><button type="button" data-view="black">Black acrylic</button><button type="button" data-view="laser">Laser file</button>
+        <button type="button" data-view="birch">Birch ply</button><button type="button" data-view="black">Black acrylic</button><button type="button" data-view="laser">Laser file</button>
       </div>
     </div>
     <div class="canvasBox">
@@ -963,8 +963,7 @@ function toast(msg) { const t = $('toast'); t.textContent = msg; t.hidden = fals
 
 // ---------- preview ----------
 const MATERIALS = {
-  birch: { piece: '#E8CDA2', ink: '#5C3A1E', edge: '#A9804F', imgMode: 'multiply', label: 'Birch plywood' },
-  white: { piece: '#FBFBFA', ink: '#3A3A3C', edge: '#B9B9BC', imgMode: 'multiply', label: 'White acrylic' },
+  birch: { piece: '#E8CDA2', ink: '#5C3A1E', edge: '#A9804F', imgMode: 'multiply', label: 'Birch ply' },
   black: { piece: '#1E1E20', ink: '#D8D8D6', edge: '#000000', imgMode: 'screen', label: 'Black acrylic' },
   laser: { piece: '#FFFFFF', ink: '#000000', edge: null, imgMode: 'source-over', label: 'Laser file' }
 };
@@ -1196,7 +1195,7 @@ async function restore() {
     for (const [id, u] of Object.entries(s.uploads || {})) { try { await addUpload(id, u); } catch (e) { } }
     D = { ...DEFAULTS, ...s.D, cutColor: '#000000' };
     D.font = ({ oswald: 'cond', pacifico: 'pac', marker: 'mark' })[D.font] || D.font; if (!FONTS[D.font]) D.font = DEFAULTS.font; if (D.upload && !uploads[D.upload]) D.upload = null;
-    view = s.view || view;
+    view = MATERIALS[s.view] ? s.view : view;
   } catch (e) { }
 }
 
